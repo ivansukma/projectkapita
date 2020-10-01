@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class koneksi {
+public class Koneksi {
     
     public Connection con = null;
     public String Driver;
@@ -14,7 +14,7 @@ public class koneksi {
     public String user;
     public String pass;
     
-    public koneksi(){
+    public Koneksi(){
         Driver = "com.mysql.jdbc.Driver";
         url = "jdbc:mysql://localhost:3306/db_perpus";
         user = "root";
@@ -23,18 +23,18 @@ public class koneksi {
             Class.forName(Driver);
             con = DriverManager.getConnection(url, user, pass);
         } catch (SQLException e) {
-            Logger.getLogger(koneksi.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, e);
         } catch (ClassNotFoundException e) {
-            Logger.getLogger(koneksi.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
-    public Connection getconnection(){
+    public Connection getConnection(){
         return this.con;
     }
     
     public static void main(String[] args) {
-        koneksi kon = new koneksi();
-        System.out.println(kon.getconnection());
+        Koneksi kon = new Koneksi();
+        System.out.println(kon.getConnection());
     }
 }

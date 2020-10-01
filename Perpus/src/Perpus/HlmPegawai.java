@@ -1,32 +1,34 @@
 package Perpus;
 
-import DAO.dao;
-import ENTITAS.entitas;
-import KONEKSI.koneksi;
+import DAO.Dao;
+import ENTITAS.Entitas;
+import KONEKSI.Koneksi;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class hlmpengunjung extends javax.swing.JFrame {
-    public hlmpengunjung() {
+public class HlmPegawai extends javax.swing.JFrame {
+
+    public HlmPegawai() {
         initComponents();
         refresh();
     }
-    
+
     Connection conn;
-    entitas en = new entitas();
-    koneksi kon = new koneksi();
-    dao dao = new dao(kon.getconnection());
-    List<entitas> list = new ArrayList();
-    List<entitas> listt = new ArrayList();
+    Entitas en = new Entitas();
+    Koneksi kon = new Koneksi();
+    Dao dao = new Dao(kon.getConnection());
+    List<Entitas> list = new ArrayList();
+    List<Entitas> listt = new ArrayList();
     int total;
     
     public void refresh() {
-        list = dao.getall();
+        list = dao.getAll();
         String[][] data = new String[list.size()][6];
         int i = 0;
-        for (entitas li : list) {
+        for (Entitas li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -35,22 +37,23 @@ public class hlmpengunjung extends javax.swing.JFrame {
             data[i][5] = li.getTahun_terbit();
             i++;
         }
-        Tabel1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG",
+        Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG",
              "NAMA_PENERBIT", "TAHUN_TERBIT"}));
     }
     
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         caribuku = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Tabel1 = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         isbn = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         judul = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -61,9 +64,31 @@ public class hlmpengunjung extends javax.swing.JFrame {
         penerbit = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tahun = new javax.swing.JTextField();
+        msktmbl = new javax.swing.JButton();
+        hpstmbl = new javax.swing.JButton();
+        brutmbl = new javax.swing.JButton();
+        brshtmbl = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        Table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        Table1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Table1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Table1);
 
         jLabel1.setText("Daftar Data Buku");
 
@@ -75,27 +100,9 @@ public class hlmpengunjung extends javax.swing.JFrame {
             }
         });
 
-        Tabel1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        Tabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Tabel1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(Tabel1);
+        jLabel3.setText("ISBN");
 
         jLabel4.setText("Data Buku");
-
-        jLabel3.setText("ISBN");
 
         jLabel5.setText("Judul");
 
@@ -106,6 +113,34 @@ public class hlmpengunjung extends javax.swing.JFrame {
         jLabel8.setText("Nama Penerbit");
 
         jLabel9.setText("Tahun Terbit");
+
+        msktmbl.setText("Masukkan");
+        msktmbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                msktmblActionPerformed(evt);
+            }
+        });
+
+        hpstmbl.setText("Hapus");
+        hpstmbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hpstmblActionPerformed(evt);
+            }
+        });
+
+        brutmbl.setText("Perbarui");
+        brutmbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brutmblActionPerformed(evt);
+            }
+        });
+
+        brshtmbl.setText("Bersihkan");
+        brshtmbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brshtmblActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,7 +173,16 @@ public class hlmpengunjung extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tahun))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(brshtmbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(brutmbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(hpstmbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(msktmbl))
+                            .addComponent(tahun)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -147,7 +191,7 @@ public class hlmpengunjung extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(caribuku, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -187,19 +231,58 @@ public class hlmpengunjung extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(tahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(msktmbl)
+                    .addComponent(hpstmbl)
+                    .addComponent(brutmbl)
+                    .addComponent(brshtmbl))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void msktmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msktmblActionPerformed
+        en.setIsbn(isbn.getText().toString());
+        en.setJudul(judul.getText().toString());
+        en.setKategori(kategori.getText().toString());
+        en.setNama_pengarang(pengarang.getText().toString());
+        en.setNama_penerbit(penerbit.getText().toString());
+        en.setTahun_terbit(tahun.getText().toString());
+        
+        boolean input=dao.inputData(en);
+        refresh();
+    }//GEN-LAST:event_msktmblActionPerformed
+
+    private void hpstmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hpstmblActionPerformed
+        int konfirm = JOptionPane.showConfirmDialog(null, "Yakin Hapus?", 
+                "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (konfirm == JOptionPane.YES_OPTION) {
+            String hapus = dao.hapus(isbn.getText().toString());
+            refresh();
+        }else{
+            return;
+        }    
+    }//GEN-LAST:event_hpstmblActionPerformed
+
+    private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
+        isbn.setText(Table1.getValueAt(Table1.getSelectedRow(), 0).toString());
+        judul.setText(Table1.getValueAt(Table1.getSelectedRow(), 1).toString());
+        kategori.setText(Table1.getValueAt(Table1.getSelectedRow(), 2).toString());
+        pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
+        penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
+        tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_Table1MouseClicked
+
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
-        List<entitas> list = new ArrayList();
-        dao buku=new dao(conn);
-        list = dao.CariBuku(caribuku.getText().toString());
+        //String katakunci = combobox.getSelectedItem().toString();
+        List<Entitas> list = new ArrayList();
+        Dao buku=new Dao(conn);
+        list = dao.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][6];
         int i = 0;
-        for (entitas li : list) {
+        for (Entitas li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -208,18 +291,30 @@ public class hlmpengunjung extends javax.swing.JFrame {
             data[i][5] = li.getTahun_terbit();
             i++;
         }
-        Tabel1.setModel(new DefaultTableModel(data, new String[]{"ISBN",
+        Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN",
             "JUDUL", "KATEGORI", "NAMA_PENGARANG", "NAMA_PENERBIT", "TAHUN_TERBIT"}));
     }//GEN-LAST:event_caribukuKeyPressed
 
-    private void Tabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabel1MouseClicked
-        isbn.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 0).toString());
-        judul.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 1).toString());
-        kategori.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 2).toString());
-        pengarang.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 3).toString());
-        penerbit.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 4).toString());
-        tahun.setText(Tabel1.getValueAt(Tabel1.getSelectedRow(), 5).toString());
-    }//GEN-LAST:event_Tabel1MouseClicked
+    private void brutmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brutmblActionPerformed
+        String isbnt=isbn.getText().toString();
+        String judult=judul.getText().toString();
+        String kategorit=kategori.getText().toString();
+        String npet=pengarang.getText().toString();
+        String npt=penerbit.getText().toString();
+        String tht=tahun.getText().toString();
+        
+        String update=dao.perbarui(isbnt, judult, kategorit, npet, npt, tht);
+        refresh();
+    }//GEN-LAST:event_brutmblActionPerformed
+
+    private void brshtmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brshtmblActionPerformed
+        isbn.setText("");
+        judul.setText("");
+        kategori.setText("");
+        pengarang.setText("");
+        penerbit.setText("");
+        tahun.setText("");
+    }//GEN-LAST:event_brshtmblActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,13 +333,13 @@ public class hlmpengunjung extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(hlmpengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HlmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(hlmpengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HlmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(hlmpengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HlmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(hlmpengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HlmPegawai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -252,14 +347,17 @@ public class hlmpengunjung extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new hlmpengunjung().setVisible(true);
+                new HlmPegawai().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Tabel1;
+    private javax.swing.JTable Table1;
+    private javax.swing.JButton brshtmbl;
+    private javax.swing.JButton brutmbl;
     private javax.swing.JTextField caribuku;
+    private javax.swing.JButton hpstmbl;
     private javax.swing.JTextField isbn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -273,9 +371,9 @@ public class hlmpengunjung extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField judul;
     private javax.swing.JTextField kategori;
+    private javax.swing.JButton msktmbl;
     private javax.swing.JTextField penerbit;
     private javax.swing.JTextField pengarang;
     private javax.swing.JTextField tahun;
     // End of variables declaration//GEN-END:variables
-
 }

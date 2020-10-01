@@ -1,6 +1,6 @@
 package ENTITAS;
 
-public class entitas {
+public class Entitas {
 
     public String getPegawai() {
         return pegawai;

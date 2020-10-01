@@ -1,8 +1,8 @@
 package Perpus;
 
-import DAO.dao;
-import ENTITAS.entitas;
-import KONEKSI.koneksi;
+import DAO.Dao;
+import ENTITAS.Entitas;
+import KONEKSI.Koneksi;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,10 +12,10 @@ public class Pegawai extends javax.swing.JFrame {
         initComponents();
     }
     
-    entitas en = new entitas();
-    koneksi kon = new koneksi();
-    dao dao = new dao(kon.getconnection());
-    List<entitas> list = new ArrayList();
+    Entitas en = new Entitas();
+    Koneksi kon = new Koneksi();
+    Dao dao = new Dao(kon.getConnection());
+    List<Entitas> list = new ArrayList();
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,7 +101,7 @@ public class Pegawai extends javax.swing.JFrame {
         list = dao.getPegawai();
         String[][] data = new String[list.size()][2];
         int i = 0;
-        for (entitas li : list) {
+        for (Entitas li : list) {
             data[i][0] = li.getPegawai();
             data[i][1] = li.getPas();
             i++;
@@ -112,7 +112,7 @@ public class Pegawai extends javax.swing.JFrame {
             if (userin.getText().toString().equals(data[k][0]) &&
                 passin.getText().toString().equals(data[k][1])) {
                 this.dispose();
-                new Perpus.hlmpegawai().setVisible(true);
+                new Perpus.HlmPegawai().setVisible(true);
                 return;
             }else if (!userin.getText().toString().equals(data[k][0]) &&
                 passin.getText().toString().equals(data[k][1])) {
