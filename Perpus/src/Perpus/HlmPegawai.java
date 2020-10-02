@@ -14,6 +14,7 @@ public class HlmPegawai extends javax.swing.JFrame {
     public HlmPegawai() {
         initComponents();
         refresh();
+        setNetralCondition();
     }
 
     Connection conn;
@@ -41,6 +42,19 @@ public class HlmPegawai extends javax.swing.JFrame {
              "NAMA_PENERBIT", "TAHUN_TERBIT"}));
     }
     
+    public void setNetralCondition() {
+        brshtmbl.setEnabled(false);
+        brutmbl.setEnabled(false);
+        hpstmbl.setEnabled(false);
+        msktmbl.setEnabled(true);
+    }
+    
+    public void setInputTableCondition() {
+        brshtmbl.setEnabled(true);
+        brutmbl.setEnabled(true);
+        hpstmbl.setEnabled(true);
+        msktmbl.setEnabled(false);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -151,28 +165,8 @@ public class HlmPegawai extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(isbn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(judul))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(kategori))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pengarang))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(penerbit))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(brshtmbl)
@@ -191,7 +185,21 @@ public class HlmPegawai extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(caribuku, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 167, Short.MAX_VALUE)))
+                        .addGap(0, 167, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(penerbit, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                            .addComponent(pengarang)
+                            .addComponent(kategori)
+                            .addComponent(judul)
+                            .addComponent(isbn))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -253,6 +261,7 @@ public class HlmPegawai extends javax.swing.JFrame {
         
         boolean input=dao.inputData(en);
         refresh();
+        setNetralCondition();
     }//GEN-LAST:event_msktmblActionPerformed
 
     private void hpstmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hpstmblActionPerformed
@@ -261,6 +270,7 @@ public class HlmPegawai extends javax.swing.JFrame {
         if (konfirm == JOptionPane.YES_OPTION) {
             String hapus = dao.hapus(isbn.getText().toString());
             refresh();
+            setNetralCondition();
         }else{
             return;
         }    
@@ -273,6 +283,7 @@ public class HlmPegawai extends javax.swing.JFrame {
         pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
         penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
         tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
+        setInputTableCondition();
     }//GEN-LAST:event_Table1MouseClicked
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
@@ -305,6 +316,7 @@ public class HlmPegawai extends javax.swing.JFrame {
         
         String update=dao.perbarui(isbnt, judult, kategorit, npet, npt, tht);
         refresh();
+        setNetralCondition();
     }//GEN-LAST:event_brutmblActionPerformed
 
     private void brshtmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brshtmblActionPerformed
@@ -314,6 +326,7 @@ public class HlmPegawai extends javax.swing.JFrame {
         pengarang.setText("");
         penerbit.setText("");
         tahun.setText("");
+        setNetralCondition();
     }//GEN-LAST:event_brshtmblActionPerformed
 
     /**
