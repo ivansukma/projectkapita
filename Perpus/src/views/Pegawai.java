@@ -1,8 +1,8 @@
-package Perpus;
+package views;
 
-import DAO.Dao;
-import ENTITAS.Entitas;
-import KONEKSI.Koneksi;
+import controllers.BukuController;
+import models.Entitas;
+import tools.Koneksi;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -14,7 +14,7 @@ public class Pegawai extends javax.swing.JFrame {
     
     Entitas en = new Entitas();
     Koneksi kon = new Koneksi();
-    Dao dao = new Dao(kon.getConnection());
+    BukuController dao = new BukuController(kon.getConnection());
     List<Entitas> list = new ArrayList();
     
     @SuppressWarnings("unchecked")
@@ -112,7 +112,7 @@ public class Pegawai extends javax.swing.JFrame {
             if (userin.getText().toString().equals(data[k][0]) &&
                 passin.getText().toString().equals(data[k][1])) {
                 this.dispose();
-                new Perpus.HlmPegawai().setVisible(true);
+                new views.PegawaiView().setVisible(true);
                 return;
             }else if (!userin.getText().toString().equals(data[k][0]) &&
                 passin.getText().toString().equals(data[k][1])) {

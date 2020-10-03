@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Perpus;
+package views;
 
 
 public class Awal extends javax.swing.JFrame {
@@ -94,12 +94,12 @@ public class Awal extends javax.swing.JFrame {
 
     private void pegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pegawaiActionPerformed
         this.dispose();
-        new Perpus.Pegawai().setVisible(true);
+        new views.Pegawai().setVisible(true);
     }//GEN-LAST:event_pegawaiActionPerformed
 
     private void pengunjungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pengunjungActionPerformed
         this.dispose();
-        new Perpus.Pengunjung().setVisible(true);
+        new views.Pengunjung().setVisible(true);
     }//GEN-LAST:event_pengunjungActionPerformed
 
     /**

@@ -1,4 +1,4 @@
-package ENTITAS;
+package models;
 
 public class Entitas {
 

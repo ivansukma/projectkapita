@@ -1,15 +1,15 @@
-package Perpus;
+package views;
 
-import DAO.Dao;
-import ENTITAS.Entitas;
-import KONEKSI.Koneksi;
+import controllers.BukuController;
+import models.Entitas;
+import tools.Koneksi;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class HlmPengunjung extends javax.swing.JFrame {
-    public HlmPengunjung() {
+public class PengunjungView extends javax.swing.JFrame {
+    public PengunjungView() {
         initComponents();
         refresh();
     }
@@ -17,7 +17,7 @@ public class HlmPengunjung extends javax.swing.JFrame {
     Connection conn;
     Entitas en = new Entitas();
     Koneksi kon = new Koneksi();
-    Dao dao = new Dao(kon.getConnection());
+    BukuController dao = new BukuController(kon.getConnection());
     List<Entitas> list = new ArrayList();
     List<Entitas> listt = new ArrayList();
     int total;
@@ -207,7 +207,7 @@ public class HlmPengunjung extends javax.swing.JFrame {
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
         List<Entitas> list = new ArrayList();
-        Dao buku=new Dao(conn);
+        BukuController buku=new BukuController(conn);
         list = dao.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][6];
         int i = 0;
@@ -250,21 +250,23 @@ public class HlmPengunjung extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HlmPengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PengunjungView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HlmPengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PengunjungView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HlmPengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PengunjungView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HlmPengunjung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PengunjungView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HlmPengunjung().setVisible(true);
+                new PengunjungView().setVisible(true);
             }
         });
     }

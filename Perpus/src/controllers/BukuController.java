@@ -1,6 +1,6 @@
-package DAO;
+package controllers;
 
-import ENTITAS.Entitas;
+import models.Entitas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Dao {
+public class BukuController {
     private Connection conn = null;
 
-    public Dao(Connection con) {
+    public BukuController(Connection con) {
         this.conn = con;
     }
     
