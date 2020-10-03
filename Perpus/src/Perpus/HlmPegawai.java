@@ -43,7 +43,7 @@ public class HlmPegawai extends javax.swing.JFrame {
     }
     
     public void setNetralCondition() {
-        brshtmbl.setEnabled(false);
+        brshtmbl.setEnabled(true);
         brutmbl.setEnabled(false);
         hpstmbl.setEnabled(false);
         msktmbl.setEnabled(true);
