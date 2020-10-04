@@ -22,7 +22,7 @@ public class DetailController {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_detail_userbuku (id, nama_user, judul, ) "
                     + "VALUES(?,?,?, GETDATE())");
             
-            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.setString(1, entity.getId());
             preparedStatement.setString(2, entity.getNamaUser());
             preparedStatement.setString(3, entity.getJudul());
             preparedStatement.setString(4, entity.getTgl());
@@ -46,7 +46,7 @@ public class DetailController {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ModelDetail mdtl = new ModelDetail();
-                mdtl.setId(rs.getInt(1));
+                mdtl.setId(rs.getString(1));
                 mdtl.setNamaUser(rs.getString(2));
                 mdtl.setJudul(rs.getString(3));
                 mdtl.setTgl(rs.getString(4));

@@ -1,7 +1,9 @@
 package views;
 
 import controllers.BukuController;
+import controllers.DetailController;
 import models.ModelBuku;
+import models.ModelDetail;
 import tools.Koneksi;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -16,16 +18,20 @@ public class PengunjungView extends javax.swing.JFrame {
     public PengunjungView() {
         initComponents();
         refresh();
- 
+        getDetailBuku();
     }
 
     Connection conn;
     ModelBuku en = new ModelBuku();
+    ModelDetail md = new ModelDetail();
     Koneksi kon = new Koneksi();
     BukuController dao = new BukuController(kon.getConnection());
+    DetailController daoDetail = new DetailController(kon.getConnection());
     List<ModelBuku> list = new ArrayList();
     List<ModelBuku> listt = new ArrayList();
+    List<ModelDetail> listDet = new ArrayList();
     int total;
+    int indeks;
     
     public void refresh() {
         list = dao.getAll();
@@ -41,8 +47,24 @@ public class PengunjungView extends javax.swing.JFrame {
             data[i][6] = li.getSinopsis();
             i++;
         }
-        Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG",
-             "NAMA_PENERBIT", "TAHUN_TERBIT"}));
+        Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG"}));
+    }
+    
+    public void getDetailBuku() {
+        List<ModelDetail> dataDet = new ArrayList();
+        DetailController detail = new DetailController(conn);
+        dataDet = daoDetail.lihatRecord(judul.getText().toString());
+        
+        String[][] data = new String[list.size()][4];
+        int i = 0;
+        for(ModelDetail dd : dataDet) {
+            data[i][0] = dd.getId();
+            data[i][1] = dd.getJudul();
+            data[i][2] = dd.getNamaUser();
+            data[i][3] = dd.getTgl();
+            i++;
+        }
+        tabelDetail.setModel(new DefaultTableModel(data, new String[]{"No", "Judul", "NamaUser", "Tanggal"}));
     }
     
 
@@ -77,7 +99,7 @@ public class PengunjungView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelDetail = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -110,22 +132,35 @@ public class PengunjungView extends javax.swing.JFrame {
 
         jLabel2.setText("Cari Buku");
 
+        isbn.setEditable(false);
+
+        judul.setEditable(false);
+
         jLabel3.setText("ISBN");
 
         jLabel5.setText("Judul");
 
         jLabel6.setText("kategori");
 
+        kategori.setEditable(false);
+
         jLabel7.setText("Nama Pengarang");
+
+        pengarang.setEditable(false);
 
         jLabel8.setText("Nama Penerbit");
 
+        penerbit.setEditable(false);
+
         jLabel9.setText("Tahun Terbit");
+
+        tahun.setEditable(false);
 
         jLabel4.setText("Data Buku");
 
         jLabel10.setText("Sinopsis");
 
+        textSinopsis.setEditable(false);
         textSinopsis.setColumns(20);
         textSinopsis.setRows(5);
         jScrollPane2.setViewportView(textSinopsis);
@@ -230,18 +265,15 @@ public class PengunjungView extends javax.swing.JFrame {
 
         jLabel11.setText("Record");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(tabelDetail);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -285,12 +317,24 @@ public class PengunjungView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
-        isbn.setText(Table1.getValueAt(Table1.getSelectedRow(), 0).toString());
-        judul.setText(Table1.getValueAt(Table1.getSelectedRow(), 1).toString());
-        kategori.setText(Table1.getValueAt(Table1.getSelectedRow(), 2).toString());
-        pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
-        penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
-        tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
+        
+        indeks = Table1.getSelectedRow();
+        ModelBuku dataBuku = list.get(indeks);
+        
+        isbn.setText(dataBuku.getIsbn());
+        judul.setText(dataBuku.getJudul());
+        kategori.setText(dataBuku.getKategori());
+        pengarang.setText(dataBuku.getNamaPengarang());
+        penerbit.setText(dataBuku.getNamaPenerbit());
+        tahun.setText(dataBuku.getTahunTerbit());
+        textSinopsis.setText(dataBuku.getSinopsis());
+        
+//        isbn.setText(Table1.getValueAt(Table1.getSelectedRow(), 0).toString());
+//        judul.setText(Table1.getValueAt(Table1.getSelectedRow(), 1).toString());
+//        kategori.setText(Table1.getValueAt(Table1.getSelectedRow(), 2).toString());
+//        pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
+//        penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
+//        tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
     }//GEN-LAST:event_Table1MouseClicked
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
@@ -314,6 +358,8 @@ public class PengunjungView extends javax.swing.JFrame {
     }//GEN-LAST:event_caribukuKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -388,11 +434,11 @@ public class PengunjungView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField judul;
     private javax.swing.JTextField kategori;
     private javax.swing.JTextField penerbit;
     private javax.swing.JTextField pengarang;
+    private javax.swing.JTable tabelDetail;
     private javax.swing.JTextField tahun;
     private javax.swing.JTextArea textSinopsis;
     // End of variables declaration//GEN-END:variables
