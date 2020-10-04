@@ -42,7 +42,7 @@ public class BukuController {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
-            preparedStatement = conn.prepareCall("SELECT * FROM pegawai");
+            preparedStatement = conn.prepareCall("SELECT * FROM tb_pegawai");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Entitas entity = new Entitas();

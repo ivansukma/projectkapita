@@ -37,6 +37,12 @@ public class Pegawai extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN");
 
+        userin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userinActionPerformed(evt);
+            }
+        });
+
         jLabel2.setText("Username");
 
         jLabel4.setText("Kata Sandi");
@@ -142,6 +148,10 @@ public class Pegawai extends javax.swing.JFrame {
             k++;
         }
     }//GEN-LAST:event_inActionPerformed
+
+    private void userinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userinActionPerformed
 
     /**
      * @param args the command line arguments
