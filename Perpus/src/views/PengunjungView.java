@@ -23,10 +23,10 @@ public class PengunjungView extends javax.swing.JFrame {
     int total;
     
     public void refresh() {
-        list = dao.getAll();
+        listt = dao.getAll();
         String[][] data = new String[list.size()][7];
         int i = 0;
-        for (ModelBuku li : list) {
+        for (ModelBuku li : listt) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -299,7 +299,7 @@ public class PengunjungView extends javax.swing.JFrame {
         List<ModelBuku> list = new ArrayList();
         BukuController buku=new BukuController(conn);
         list = dao.cariBuku(caribuku.getText().toString());
-        String[][] data = new String[list.size()][6];
+        String[][] data = new String[list.size()][7];
         int i = 0;
         for (ModelBuku li : list) {
             data[i][0] = li.getIsbn();

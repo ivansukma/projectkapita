@@ -98,7 +98,7 @@ public class BukuController {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
-            preparedStatement = conn.prepareCall("SELECT * FROM perpus_new");
+            preparedStatement = conn.prepareCall("SELECT * FROM tb_buku");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 ModelBuku entity = new ModelBuku();
