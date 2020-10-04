@@ -38,13 +38,13 @@ public class UserController {
     public boolean inputuser(ModelUser entity) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = conn.prepareStatement("INSERT INTO tb_user (user, pass, no_handphone, email) "
+            preparedStatement = conn.prepareStatement("INSERT INTO tb_user (user, pass, email, no_handphone) "
                     + "VALUES(?,?,?,?)");
             
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getPassword());
-            preparedStatement.setString(3, entity.getNoTelp());
-            preparedStatement.setString(4, entity.getEmail());
+            preparedStatement.setString(3, entity.getEmail());
+            preparedStatement.setString(4, entity.getNoTelp());
             if (preparedStatement.executeUpdate() > 0) {
                 return true;
             }
