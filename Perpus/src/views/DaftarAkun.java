@@ -150,8 +150,10 @@ public class DaftarAkun extends javax.swing.JFrame {
         model.setEmail(emailField.getText().toString());
         model.setNoTelp(noTelpField.getText().toString());
         if (usernameField.getText().toString().equals("") &&
-            passwordField.getText().toString().equals("")) {
-                JOptionPane.showMessageDialog(null, "Harap isi nama & kata sandi",
+            passwordField.getText().toString().equals("")&&
+            emailField.getText().toString().equals("")&&
+            noTelpField.getText().toString().equals("")) {
+                JOptionPane.showMessageDialog(null, "Harap isi data dengan lengkap",
                         "Peringatan", 
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -165,7 +167,18 @@ public class DaftarAkun extends javax.swing.JFrame {
                         "Peringatan", 
                         JOptionPane.ERROR_MESSAGE);
                 return;
-        }else{
+        }else if(emailField.getText().toString().equals("")){
+            JOptionPane.showMessageDialog(null, "Harap isi email dengan benar",
+                        "Peringatan", 
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+        }else if(noTelpField.getText().toString().equals("")){
+            JOptionPane.showMessageDialog(null, "Harap isi nomor telepon dengan benar",
+                        "Peringatan", 
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+        else{
         boolean input=dao.inputuser(model);
         JOptionPane.showConfirmDialog(this, "Akun telah terdaftar!!", "Informasi",JOptionPane.PLAIN_MESSAGE);
         usernameField.setText("");
