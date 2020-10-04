@@ -27,7 +27,7 @@ public class PegawaiView extends javax.swing.JFrame {
     
     public void refresh() {
         list = dao.getAll();
-        String[][] data = new String[list.size()][6];
+        String[][] data = new String[list.size()][7];
         int i = 0;
         for (ModelBuku li : list) {
             data[i][0] = li.getIsbn();
