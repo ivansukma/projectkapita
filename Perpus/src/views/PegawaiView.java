@@ -1,7 +1,6 @@
 package views;
 
 import controllers.BukuController;
-import models.Entitas;
 import models.ModelBuku;
 import tools.Koneksi;
 import java.sql.Connection;

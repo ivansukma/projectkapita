@@ -1,7 +1,8 @@
 package views;
 
-import controllers.BukuController;
+import controllers.UserController;
 import models.Entitas;
+import models.ModelUser;
 import tools.Koneksi;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,10 @@ public class Pengunjung extends javax.swing.JFrame {
         initComponents();
     }
     
-    Entitas en = new Entitas();
+    ModelUser en = new ModelUser();
     Koneksi kon = new Koneksi();
-    BukuController dao = new BukuController(kon.getConnection());
-    List<Entitas> list = new ArrayList();
+    UserController dao = new UserController(kon.getConnection());
+    List<ModelUser> list = new ArrayList();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -185,9 +186,9 @@ public class Pengunjung extends javax.swing.JFrame {
         list = dao.getUser();
         String[][] data = new String[list.size()][2];
         int i = 0;
-        for (Entitas li : list) {
-            data[i][0] = li.getUser();
-            data[i][1] = li.getPass();
+        for (ModelUser li : list) {
+            data[i][0] = li.getUsername();
+            data[i][1] = li.getPassword();
             i++;
         }
 
@@ -228,8 +229,8 @@ public class Pengunjung extends javax.swing.JFrame {
     }//GEN-LAST:event_inActionPerformed
 
     private void signActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signActionPerformed
-        en.setUser(usersign.getText().toString());
-        en.setPass(passsign.getText().toString());
+        en.setUsername(usersign.getText().toString());
+        en.setPassword(passsign.getText().toString());
         if (usersign.getText().toString().equals("") &&
             passsign.getText().toString().equals("")) {
                 JOptionPane.showMessageDialog(null, "Harap isi nama & kata sandi",
