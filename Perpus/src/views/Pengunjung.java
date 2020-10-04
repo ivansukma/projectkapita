@@ -13,6 +13,8 @@ public class Pengunjung extends javax.swing.JFrame {
         initComponents();
     }
     
+    public String idUser;
+    
     ModelUser en = new ModelUser();
     Koneksi kon = new Koneksi();
     UserController dao = new UserController(kon.getConnection());
@@ -143,8 +145,10 @@ public class Pengunjung extends javax.swing.JFrame {
         for (String[] c : data) {
             if (userin.getText().toString().equals(data[k][0]) &&
                     passin.getText().toString().equals(data[k][1])) {
+                this.idUser = userin.getText().toString();
                 this.dispose();
-                new views.PengunjungView().setVisible(true);
+                
+                new views.PengunjungView(userin.getText().toString()).setVisible(true);
                 return;
             }else if (!userin.getText().toString().equals(data[k][0]) &&
                     passin.getText().toString().equals(data[k][1])) {

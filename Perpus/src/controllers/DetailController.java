@@ -19,8 +19,8 @@ public class DetailController {
         public boolean inputuser(ModelDetail entity) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = conn.prepareStatement("INSERT INTO tb_detail_userbuku (id, nama_user, judul, ) "
-                    + "VALUES(?,?,?, GETDATE())");
+            preparedStatement = conn.prepareStatement("INSERT INTO tb_detail_userbuku (id, nama_user, judul, tanggal) "
+                    + "VALUES(?,?,?,?)");
             
             preparedStatement.setString(1, entity.getId());
             preparedStatement.setString(2, entity.getNamaUser());

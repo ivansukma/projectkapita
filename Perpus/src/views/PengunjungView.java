@@ -6,7 +6,9 @@ import models.ModelBuku;
 import models.ModelDetail;
 import tools.Koneksi;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,11 +16,21 @@ import javax.swing.table.DefaultTableModel;
 public class PengunjungView extends javax.swing.JFrame {
     private Object brshtmbl;
     private Object brutmbl;
-
+    
+    public String nama;
+    
     public PengunjungView() {
         initComponents();
         refresh();
         getDetailBuku();
+    }
+
+    public PengunjungView(String na) {
+        initComponents();
+        refresh();
+        getDetailBuku();
+        this.nama = na;
+        System.out.println(this.nama);
     }
 
     Connection conn;
@@ -32,6 +44,7 @@ public class PengunjungView extends javax.swing.JFrame {
     List<ModelDetail> listDet = new ArrayList();
     int total;
     int indeks;
+    int countDetail;
     
     public void refresh() {
         list = dao.getAll();
@@ -47,6 +60,7 @@ public class PengunjungView extends javax.swing.JFrame {
             data[i][6] = li.getSinopsis();
             i++;
         }
+        this.countDetail = i;
         Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG"}));
     }
     
@@ -342,7 +356,7 @@ public class PengunjungView extends javax.swing.JFrame {
         List<ModelBuku> list = new ArrayList();
         BukuController buku=new BukuController(conn);
         list = dao.cariBuku(caribuku.getText().toString());
-        String[][] data = new String[list.size()][6];
+        String[][] data = new String[list.size()][7];
         int i = 0;
         for (ModelBuku li : list) {
             data[i][0] = li.getIsbn();
@@ -351,6 +365,7 @@ public class PengunjungView extends javax.swing.JFrame {
             data[i][3] = li.getNamaPengarang();
             data[i][4] = li.getNamaPenerbit();
             data[i][5] = li.getTahunTerbit();
+            data[i][6] = li.getSinopsis();
             i++;
         }
         Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN",
@@ -360,7 +375,18 @@ public class PengunjungView extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
         
+        String id = String.valueOf(this.countDetail+1);
+        md.setId(id);
+        md.setJudul(judul.getText().toString());
+        md.setNamaUser(this.nama);
+        md.setTgl(formatter.format(date));
+        
+        boolean input = daoDetail.inputuser(md);
+        getDetailBuku();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
