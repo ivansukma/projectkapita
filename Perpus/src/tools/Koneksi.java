@@ -1,34 +1,28 @@
 package tools;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class Koneksi {
-    
-    public Connection con = null;
-    
-    public Koneksi(){
-        try
-        {
-            con=DriverManager.getConnection("jdbc:mysql://localhost/db_perpus","root","");
-            JOptionPane.showMessageDialog(null,"connected with "+con.toString());
+
+    private static Connection connection;
+
+    public static Connection getConnection() {
+        if (connection == null) {
+            try {
+                MysqlDataSource dataSource = new MysqlDataSource();
+                dataSource.setUser("root");
+                dataSource.setPassword("");
+                dataSource.setUrl("jdbc:mysql://localhost:3306/db_perpus");
+                connection = dataSource.getConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,"not connect to server and message is"+e.getMessage());
-        }
+        return connection;
     }
-    
-    public Connection getConnection(){
-        return this.con;
-    }
-    
-    public static void main(String[] args) {
-        Koneksi kon = new Koneksi();
-        System.out.println(kon.getConnection());
-    }
+
 }
