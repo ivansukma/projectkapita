@@ -16,7 +16,7 @@ public class DetailController {
         this.conn = con;
     }
     
-        public boolean inputuser(ModelDetail entity) {
+    public boolean inputuser(ModelDetail entity) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_detail_userbuku (id, nama_user, judul, tanggal) "
@@ -42,7 +42,7 @@ public class DetailController {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            ps = conn.prepareCall("SELECT * FROM tb_detail_userbuku WHERE nama_user LIKE '%" + judul + "%'");
+            ps = conn.prepareCall("SELECT * FROM tb_detail_userbuku WHERE judul LIKE '%" + judul + "%'");
             rs = ps.executeQuery();
             while (rs.next()) {
                 ModelDetail mdtl = new ModelDetail();
@@ -51,6 +51,26 @@ public class DetailController {
                 mdtl.setJudul(rs.getString(3));
                 mdtl.setTgl(rs.getString(4));
                 get.add(mdtl);
+            }
+        } catch (Exception e) {
+        }
+        return get;
+    }
+    
+    public List<ModelDetail> getAllDetail() {
+        List<ModelDetail> get = new ArrayList();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        try {
+            preparedStatement = conn.prepareCall("SELECT * FROM tb_detail_userbuku");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ModelDetail entity = new ModelDetail();
+                entity.setId(resultSet.getString(1));
+                entity.setJudul(resultSet.getString(2));
+                entity.setNamaUser(resultSet.getString(2));
+                entity.setTgl(resultSet.getString(2));
+                get.add(entity);
             }
         } catch (Exception e) {
         }

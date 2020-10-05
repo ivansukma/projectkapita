@@ -22,13 +22,13 @@ public class PengunjungView extends javax.swing.JFrame {
     public PengunjungView() {
         initComponents();
         refresh();
-        getDetailBuku();
+        getAllDetail();
     }
 
     public PengunjungView(String na) {
         initComponents();
         refresh();
-        getDetailBuku();
+        getAllDetail();
         this.nama = na;
         System.out.println(this.nama);
     }
@@ -60,8 +60,22 @@ public class PengunjungView extends javax.swing.JFrame {
             data[i][6] = li.getSinopsis();
             i++;
         }
-        this.countDetail = i;
+        
         Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG"}));
+    }
+    
+    public void getAllDetail() {
+        listDet = daoDetail.getAllDetail();
+        String[][] data = new String[listDet.size()][4];
+        int i = 0;
+        for (ModelDetail md : listDet) {
+            data[i][0] = md.getId();
+            data[i][1] = md.getJudul();
+            data[i][2] = md.getNamaUser();
+            data[i][3] = md.getTgl();
+            i++;
+        }
+        this.countDetail = i;
     }
     
     public void getDetailBuku() {
@@ -78,6 +92,7 @@ public class PengunjungView extends javax.swing.JFrame {
             data[i][3] = dd.getTgl();
             i++;
         }
+        
         tabelDetail.setModel(new DefaultTableModel(data, new String[]{"No", "Judul", "NamaUser", "Tanggal"}));
     }
     
@@ -277,7 +292,7 @@ public class PengunjungView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel11.setText("Record");
+        jLabel11.setText("Record Buku");
 
         tabelDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,6 +364,7 @@ public class PengunjungView extends javax.swing.JFrame {
 //        pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
 //        penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
 //        tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
+        getDetailBuku();
     }//GEN-LAST:event_Table1MouseClicked
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
@@ -373,8 +389,7 @@ public class PengunjungView extends javax.swing.JFrame {
     }//GEN-LAST:event_caribukuKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+        getDetailBuku();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date));
@@ -385,7 +400,14 @@ public class PengunjungView extends javax.swing.JFrame {
         md.setNamaUser(this.nama);
         md.setTgl(formatter.format(date));
         
+        System.out.println(id);
+        System.out.println(judul.getText().toString());
+        System.out.println(this.nama);
+        System.out.println(formatter.format(date));
+        System.out.println("-------");
+        
         boolean input = daoDetail.inputuser(md);
+        getAllDetail();
         getDetailBuku();
     }//GEN-LAST:event_jButton1ActionPerformed
 
