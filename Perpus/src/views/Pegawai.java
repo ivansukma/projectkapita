@@ -1,21 +1,23 @@
 package views;
 
 import controllers.BukuController;
+import controllers.PegawaiController;
 import models.Entitas;
 import tools.Koneksi;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import models.ModelPegawai;
 
 public class Pegawai extends javax.swing.JFrame {
     public Pegawai() {
         initComponents();
     }
     
-    Entitas en = new Entitas();
+    ModelPegawai model = new ModelPegawai();
     Koneksi kon = new Koneksi();
-    BukuController dao = new BukuController(kon.getConnection());
-    List<Entitas> list = new ArrayList();
+    PegawaiController dao = new PegawaiController(kon.getConnection());
+    List<ModelPegawai> list = new ArrayList();
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -107,7 +109,7 @@ public class Pegawai extends javax.swing.JFrame {
         list = dao.getPegawai();
         String[][] data = new String[list.size()][2];
         int i = 0;
-        for (Entitas li : list) {
+        for (ModelPegawai li : list) {
             data[i][0] = li.getPegawai();
             data[i][1] = li.getPas();
             i++;
