@@ -24,7 +24,8 @@ public class PegawaiView extends javax.swing.JFrame {
     List<ModelBuku> list = new ArrayList();
     List<ModelBuku> listt = new ArrayList();
     int total;
-    
+    int indeks;
+   
     public void refresh() {
         list = dao.getAll();
         String[][] data = new String[list.size()][7];
@@ -312,12 +313,16 @@ public class PegawaiView extends javax.swing.JFrame {
     }//GEN-LAST:event_hpstmblActionPerformed
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
-        isbn.setText(Table1.getValueAt(Table1.getSelectedRow(), 0).toString());
-        judul.setText(Table1.getValueAt(Table1.getSelectedRow(), 1).toString());
-        kategori.setText(Table1.getValueAt(Table1.getSelectedRow(), 2).toString());
-        pengarang.setText(Table1.getValueAt(Table1.getSelectedRow(), 3).toString());
-        penerbit.setText(Table1.getValueAt(Table1.getSelectedRow(), 4).toString());
-        tahun.setText(Table1.getValueAt(Table1.getSelectedRow(), 5).toString());
+        indeks = Table1.getSelectedRow();
+        ModelBuku dataBuku = list.get(indeks);
+        
+        isbn.setText(dataBuku.getIsbn());
+        judul.setText(dataBuku.getJudul());
+        kategori.setText(dataBuku.getKategori());
+        pengarang.setText(dataBuku.getNamaPengarang());
+        penerbit.setText(dataBuku.getNamaPenerbit());
+        tahun.setText(dataBuku.getTahunTerbit());
+        textSinopsis.setText(dataBuku.getSinopsis());
         setInputTableCondition();
     }//GEN-LAST:event_Table1MouseClicked
 
@@ -362,6 +367,7 @@ public class PegawaiView extends javax.swing.JFrame {
         pengarang.setText("");
         penerbit.setText("");
         tahun.setText("");
+        textSinopsis.setText("");
         setNetralCondition();
     }//GEN-LAST:event_brshtmblActionPerformed
 

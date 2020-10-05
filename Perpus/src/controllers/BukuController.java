@@ -58,7 +58,7 @@ public class BukuController {
     public boolean inputData(ModelBuku entity) {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = conn.prepareStatement("INSERT INTO tb_buku (isbn,judul,kategori,nama_pengarang,nama_penerbit,tahun_terbit) "
+            preparedStatement = conn.prepareStatement("INSERT INTO tb_buku (isbn,judul,kategori,nama_pengarang,nama_penerbit,tahun_terbit, sinopsis) "
                     + "VALUES(?,?,?,?,?,?,?)");
             preparedStatement.setString(1, entity.getIsbn());
             preparedStatement.setString(2, entity.getJudul());
