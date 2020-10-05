@@ -1,6 +1,6 @@
 package views;
 
-import controllers.UserController;
+import daos.UserController;
 import javax.swing.JOptionPane;
 import models.ModelUser;
 import tools.Koneksi;
