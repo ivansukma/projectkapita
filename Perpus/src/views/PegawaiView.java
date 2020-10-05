@@ -1,7 +1,9 @@
 package views;
 
 import controllers.BukuController;
+import controllers.DetailController;
 import models.ModelBuku;
+import models.ModelDetail;
 import tools.Koneksi;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -22,10 +24,14 @@ public class PegawaiView extends javax.swing.JFrame {
     ModelBuku en = new ModelBuku();
     Koneksi kon = new Koneksi();
     BukuController dao = new BukuController(kon.getConnection());
+    DetailController daoDet = new DetailController(kon.getConnection());
     List<ModelBuku> list = new ArrayList();
     List<ModelBuku> listt = new ArrayList();
+    List<ModelDetail> listDet = new ArrayList();
     int total;
     int indeks;
+    int countDetail;
+    boolean isShow = false;
    
     public void refresh() {
         list = dao.getAll();
@@ -43,6 +49,43 @@ public class PegawaiView extends javax.swing.JFrame {
         }
         Table1.setModel(new DefaultTableModel(data, new String[]{"ISBN", "JUDUL", "KATEGORI", "NAMA_PENGARANG",
              "NAMA_PENERBIT", "TAHUN_TERBIT"}));
+    }
+    
+    public void getAllDetail() {
+        listDet = daoDet.getAllDetail();
+        String[][] data = new String[listDet.size()][4];
+        int i = 0;
+        for (ModelDetail md : listDet) {
+            data[i][0] = md.getId();
+            data[i][1] = md.getJudul();
+            data[i][2] = md.getNamaUser();
+            data[i][3] = md.getTgl();
+            i++;
+        }
+        this.countDetail = i;
+        
+        if(isShow) {
+            tabRecord.setModel(new DefaultTableModel(data, new String[]{"Id", "Judul", "NamaUser", "Tanggal"}));
+            isShow = false;
+        }
+    }
+    
+    public void getDetailBuku() {
+        List<ModelDetail> dataDet = new ArrayList();
+        DetailController detail = new DetailController(conn);
+        dataDet = daoDet.lihatRecord(judul.getText().toString());
+        
+        String[][] data = new String[list.size()][4];
+        int i = 0;
+        for(ModelDetail dd : dataDet) {
+            data[i][0] = dd.getId();
+            data[i][1] = dd.getJudul();
+            data[i][2] = dd.getNamaUser();
+            data[i][3] = dd.getTgl();
+            i++;
+        }
+        
+        tabRecord.setModel(new DefaultTableModel(data, new String[]{"Id", "Judul", "NamaUser", "Tanggal"}));
     }
     
     public void setNetralCondition() {
@@ -88,6 +131,11 @@ public class PegawaiView extends javax.swing.JFrame {
         brutmbl = new javax.swing.JButton();
         hpstmbl = new javax.swing.JButton();
         msktmbl = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabRecord = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -173,7 +221,7 @@ public class PegawaiView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2)
@@ -204,7 +252,7 @@ public class PegawaiView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tahun, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(pengarang)))
@@ -261,18 +309,67 @@ public class PegawaiView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setText("Record Buku");
+
+        tabRecord.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tabRecord);
+
+        jButton1.setText("Lihat Semua");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -317,6 +414,8 @@ public class PegawaiView extends javax.swing.JFrame {
         tahun.setText(dataBuku.getTahunTerbit());
         textSinopsis.setText(dataBuku.getSinopsis());
         setInputTableCondition();
+        
+        getDetailBuku();
     }//GEN-LAST:event_Table1MouseClicked
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
@@ -364,6 +463,13 @@ public class PegawaiView extends javax.swing.JFrame {
         setNetralCondition();
     }//GEN-LAST:event_brshtmblActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        this.isShow = true;
+        getAllDetail();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
  
     public static void main(String args[]) {
 
@@ -403,6 +509,8 @@ public class PegawaiView extends javax.swing.JFrame {
     private javax.swing.JTextField caribuku;
     private javax.swing.JButton hpstmbl;
     private javax.swing.JTextField isbn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -413,13 +521,16 @@ public class PegawaiView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField judul;
     private javax.swing.JTextField kategori;
     private javax.swing.JButton msktmbl;
     private javax.swing.JTextField penerbit;
     private javax.swing.JTextField pengarang;
+    private javax.swing.JTable tabRecord;
     private javax.swing.JTextField tahun;
     private javax.swing.JTextArea textSinopsis;
     // End of variables declaration//GEN-END:variables

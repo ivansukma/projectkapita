@@ -438,12 +438,6 @@ public class PengunjungView extends javax.swing.JFrame {
         md.setNamaUser(this.nama);
         md.setTgl(formatter.format(date));
         
-        System.out.println(id);
-        System.out.println(judul.getText().toString());
-        System.out.println(this.nama);
-        System.out.println(formatter.format(date));
-        System.out.println("-------");
-        
         boolean input = daoDetail.inputuser(md);
         getAllDetail();
         getDetailBuku();
