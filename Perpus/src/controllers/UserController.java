@@ -11,7 +11,6 @@ import models.ModelUser;
 
 public class UserController {
     private Connection conn = null;
-    
     public UserController(Connection con){
         this.conn = con;
     }
@@ -40,7 +39,6 @@ public class UserController {
         try {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_user (user, pass, email, no_handphone) "
                     + "VALUES(?,?,?,?)");
-            
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getPassword());
             preparedStatement.setString(3, entity.getEmail());

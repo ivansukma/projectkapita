@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 public class PegawaiController {
     Connection conn;
-    
     public PegawaiController(Connection con) {
         this.conn = con;
     }
