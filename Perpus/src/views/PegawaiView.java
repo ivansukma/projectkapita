@@ -291,6 +291,7 @@ public class PegawaiView extends javax.swing.JFrame {
         en.setNamaPengarang(pengarang.getText().toString());
         en.setNamaPenerbit(penerbit.getText().toString());
         en.setTahunTerbit(tahun.getText().toString());
+        en.setSinopsis(textSinopsis.getText().toString());
         
         
         boolean input=dao.inputData(en);

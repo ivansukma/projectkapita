@@ -68,8 +68,8 @@ public class DetailController {
                 ModelDetail entity = new ModelDetail();
                 entity.setId(resultSet.getString(1));
                 entity.setJudul(resultSet.getString(2));
-                entity.setNamaUser(resultSet.getString(2));
-                entity.setTgl(resultSet.getString(2));
+                entity.setNamaUser(resultSet.getString(3));
+                entity.setTgl(resultSet.getString(4));
                 get.add(entity);
             }
         } catch (Exception e) {
