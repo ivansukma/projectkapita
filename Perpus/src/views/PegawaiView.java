@@ -15,6 +15,7 @@ public class PegawaiView extends javax.swing.JFrame {
         initComponents();
         refresh();
         setNetralCondition();
+        this.setTitle("Menu Daftar Buku");
     }
 
     Connection conn;
@@ -65,7 +66,6 @@ public class PegawaiView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Table1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         caribuku = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         isbn = new javax.swing.JTextField();
@@ -109,8 +109,6 @@ public class PegawaiView extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(Table1);
-
-        jLabel1.setText("Daftar Data Buku");
 
         caribuku.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -211,9 +209,6 @@ public class PegawaiView extends javax.swing.JFrame {
                             .addComponent(tahun, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                             .addComponent(pengarang)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(89, 89, 89)
                         .addComponent(isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,9 +221,7 @@ public class PegawaiView extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(4, 4, 4)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caribuku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -410,7 +403,6 @@ public class PegawaiView extends javax.swing.JFrame {
     private javax.swing.JTextField caribuku;
     private javax.swing.JButton hpstmbl;
     private javax.swing.JTextField isbn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -23,6 +23,7 @@ public class PengunjungView extends javax.swing.JFrame {
         initComponents();
         refresh();
         getAllDetail();
+        this.setTitle("Pencarian Buku");
     }
 
     public PengunjungView(String na) {
@@ -179,6 +180,7 @@ public class PengunjungView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Table1);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Selamat Datang Di Menu Pencarian Buku");
 
         caribuku.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -303,7 +305,7 @@ public class PengunjungView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(kategori, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
