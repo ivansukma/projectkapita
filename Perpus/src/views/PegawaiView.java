@@ -1,5 +1,6 @@
 package views;
 
+import controller.BukuController;
 import controller.DetailController;
 import daos.BukuDao;
 import daos.DetailDao;
@@ -26,6 +27,7 @@ public class PegawaiView extends javax.swing.JFrame {
     Koneksi kon = new Koneksi();
     BukuDao dao = new BukuDao(kon.getConnection());
     
+    BukuController bc = new BukuController();
     DetailController dc = new DetailController();
     
     List<Buku> list = new ArrayList();
@@ -386,6 +388,8 @@ public class PegawaiView extends javax.swing.JFrame {
         en.setTahunTerbit(tahun.getText().toString());
         en.setSinopsis(textSinopsis.getText().toString());
         
+        String input = bc.inputDataBuku(isbn.getText(), judul.getText(), kategori.getText(), penerbit.getText(), 
+                pengarang.getText(), textSinopsis.getText(), tahun.getText());
         refresh();
         setNetralCondition();
     }//GEN-LAST:event_msktmblActionPerformed
