@@ -1,6 +1,6 @@
 package models;
 
-public class ModelBuku {
+public class Buku {
     private String isbn;
     private String judul;
     private String kategori;

@@ -1,6 +1,6 @@
 package models;
 
-public class ModelDetail {
+public class Detail {
     private String id;
     private String namaUser;
     private String judul;

@@ -1,6 +1,6 @@
 package models;
 
-public class ModelPegawai {
+public class Pegawai {
     private String pegawai;
     private String pas;
 

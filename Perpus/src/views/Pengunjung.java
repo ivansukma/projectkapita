@@ -1,8 +1,8 @@
 package views;
 
-import controllers.UserController;
+import daos.UserDao;
 import models.Entitas;
-import models.ModelUser;
+import models.User;
 import tools.Koneksi;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ public class Pengunjung extends javax.swing.JFrame {
     
     public String idUser;
     
-    ModelUser en = new ModelUser();
+    User en = new User();
     Koneksi kon = new Koneksi();
-    UserController dao = new UserController(kon.getConnection());
-    List<ModelUser> list = new ArrayList();
+    UserDao dao = new UserDao(kon.getConnection());
+    List<User> list = new ArrayList();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -135,7 +135,7 @@ public class Pengunjung extends javax.swing.JFrame {
         list = dao.getUser();
         String[][] data = new String[list.size()][2];
         int i = 0;
-        for (ModelUser li : list) {
+        for (User li : list) {
             data[i][0] = li.getUsername();
             data[i][1] = li.getPassword();
             i++;
