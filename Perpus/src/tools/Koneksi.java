@@ -16,7 +16,9 @@ public class Koneksi {
                 MysqlDataSource dataSource = new MysqlDataSource();
                 dataSource.setUser("root");
                 dataSource.setPassword("");
-                dataSource.setUrl("jdbc:mysql://localhost:3306/db_perpus");
+                dataSource.setServerName("localhost");
+                dataSource.setPort(3306);
+                dataSource.setDatabaseName("db_perpus");
                 connection = dataSource.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
