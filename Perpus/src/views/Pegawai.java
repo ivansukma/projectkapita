@@ -2,7 +2,6 @@ package views;
 
 import daos.BukuDao;
 import daos.PegawaiDao;
-import models.Entitas;
 import tools.Koneksi;
 import java.util.ArrayList;
 import java.util.List;

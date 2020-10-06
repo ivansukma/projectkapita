@@ -1,7 +1,6 @@
 package views;
 
 import daos.UserDao;
-import models.Entitas;
 import models.User;
 import tools.Koneksi;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package daos;
 
-import models.Entitas;
 import models.Buku;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,41 +18,6 @@ public class BukuDao {
         this.conn = con;
     }
     
-    public List<Entitas> getUser() {
-        List<Entitas> get = new ArrayList();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        try {
-            preparedStatement = conn.prepareCall("SELECT * FROM usser");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Entitas entity = new Entitas();
-                entity.setUser(resultSet.getString(1));
-                entity.setPass(resultSet.getString(2));
-                get.add(entity);
-            }
-        } catch (Exception e) {
-        }
-        return get;
-    }
-    
-    public List<Entitas> getPegawai() {
-        List<Entitas> get = new ArrayList();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        try {
-            preparedStatement = conn.prepareCall("SELECT * FROM tb_pegawai");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                Entitas entity = new Entitas();
-                entity.setPegawai(resultSet.getString(1));
-                entity.setPas(resultSet.getString(2));
-                get.add(entity);
-            }
-        } catch (Exception e) {
-        }
-        return get;
-    }
     
     public boolean inputData(Buku entity) {
         PreparedStatement preparedStatement;
@@ -76,22 +40,6 @@ public class BukuDao {
         return false;
     }
     
-    public boolean inputuser(Entitas entity) {
-        PreparedStatement preparedStatement;
-        try {
-            preparedStatement = conn.prepareStatement("INSERT INTO usser (user,pass) "
-                    + "VALUES(?,?)");
-            
-            preparedStatement.setString(1, entity.getUser());
-            preparedStatement.setString(2, entity.getPass());
-            if (preparedStatement.executeUpdate() > 0) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
     
     public List<Buku> getAll() {
         List<Buku> get = new ArrayList();
