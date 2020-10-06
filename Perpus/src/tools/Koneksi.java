@@ -1,6 +1,6 @@
 package tools;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,5 +24,7 @@ public class Koneksi {
         }
         return connection;
     }
-
+    public static void main(String[] args) {
+        System.out.println(connection);
+    }
 }
