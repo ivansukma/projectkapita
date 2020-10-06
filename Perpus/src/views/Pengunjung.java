@@ -1,6 +1,6 @@
 package views;
 
-import daos.UserController;
+import controllers.UserController;
 import models.Entitas;
 import models.ModelUser;
 import tools.Koneksi;

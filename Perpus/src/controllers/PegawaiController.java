@@ -1,4 +1,4 @@
-package daos;
+package controllers;
 
 import models.ModelPegawai;
 import java.sql.Connection;

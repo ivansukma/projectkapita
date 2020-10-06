@@ -1,7 +1,7 @@
 package views;
 
-import daos.BukuDao;
-import daos.PegawaiController;
+import controllers.BukuController;
+import controllers.PegawaiController;
 import models.Entitas;
 import tools.Koneksi;
 import java.util.ArrayList;

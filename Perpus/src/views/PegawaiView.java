@@ -1,9 +1,8 @@
 package views;
 
-import controller.BukuController;
-import daos.BukuDao;
-import daos.DetailController;
-import models.Buku;
+import controllers.BukuController;
+import controllers.DetailController;
+import models.ModelBuku;
 import models.ModelDetail;
 import tools.Koneksi;
 import java.sql.Connection;
@@ -22,12 +21,12 @@ public class PegawaiView extends javax.swing.JFrame {
     }
 
     Connection conn;
-    Buku en = new Buku();
+    ModelBuku en = new ModelBuku();
     Koneksi kon = new Koneksi();
-    BukuController bukuController = new BukuController();
+    BukuController dao = new BukuController(kon.getConnection());
     DetailController daoDet = new DetailController(kon.getConnection());
-    List<Buku> list = new ArrayList();
-    List<Buku> listt = new ArrayList();
+    List<ModelBuku> list = new ArrayList();
+    List<ModelBuku> listt = new ArrayList();
     List<ModelDetail> listDet = new ArrayList();
     int total;
     int indeks;
@@ -38,7 +37,7 @@ public class PegawaiView extends javax.swing.JFrame {
         list = dao.getAll();
         String[][] data = new String[list.size()][7];
         int i = 0;
-        for (Buku li : list) {
+        for (ModelBuku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -385,8 +384,6 @@ public class PegawaiView extends javax.swing.JFrame {
         en.setTahunTerbit(tahun.getText().toString());
         en.setSinopsis(textSinopsis.getText().toString());
         
-        
-        JOptionPane.showMessageDialog(this, bukuController.);
         refresh();
         setNetralCondition();
     }//GEN-LAST:event_msktmblActionPerformed
@@ -405,7 +402,7 @@ public class PegawaiView extends javax.swing.JFrame {
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
         indeks = Table1.getSelectedRow();
-        Buku dataBuku = list.get(indeks);
+        ModelBuku dataBuku = list.get(indeks);
         
         isbn.setText(dataBuku.getIsbn());
         judul.setText(dataBuku.getJudul());
@@ -421,12 +418,12 @@ public class PegawaiView extends javax.swing.JFrame {
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
         //String katakunci = combobox.getSelectedItem().toString();
-        List<Buku> list = new ArrayList();
-        BukuDao buku=new BukuDao(conn);
+        List<ModelBuku> list = new ArrayList();
+        BukuController buku=new BukuController(conn);
         list = dao.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][6];
         int i = 0;
-        for (Buku li : list) {
+        for (ModelBuku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();

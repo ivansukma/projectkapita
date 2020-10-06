@@ -1,7 +1,7 @@
-package daos;
+package controllers;
 
 import models.Entitas;
-import models.Buku;
+import models.ModelBuku;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BukuDao {
+public class BukuController {
     private Connection conn = null;
 
-    public BukuDao(Connection con) {
+    public BukuController(Connection con) {
         this.conn = con;
     }
     
@@ -55,7 +55,7 @@ public class BukuDao {
         return get;
     }
     
-    public boolean inputData(Buku entity) {
+    public boolean inputData(ModelBuku entity) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_buku (isbn,judul,kategori,nama_pengarang,nama_penerbit,tahun_terbit, sinopsis) "
@@ -93,15 +93,15 @@ public class BukuDao {
         return false;
     }
     
-    public List<Buku> getAll() {
-        List<Buku> get = new ArrayList();
+    public List<ModelBuku> getAll() {
+        List<ModelBuku> get = new ArrayList();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
             preparedStatement = conn.prepareCall("SELECT * FROM tb_buku");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Buku entity = new Buku();
+                ModelBuku entity = new ModelBuku();
                 entity.setIsbn(resultSet.getString(1));
                 entity.setJudul(resultSet.getString(2));
                 entity.setKategori(resultSet.getString(3));
@@ -116,8 +116,8 @@ public class BukuDao {
         return get;
     }
     
-    public List<Buku> cariBuku(String judul) {
-        List<Buku> get = new ArrayList();
+    public List<ModelBuku> cariBuku(String judul) {
+        List<ModelBuku> get = new ArrayList();
         PreparedStatement ps;
         ResultSet rs;
         try {
@@ -125,7 +125,7 @@ public class BukuDao {
                     judul + "%' OR nama_penerbit LIKE '%" + judul + "%' OR tahun_terbit LIKE '%" + judul + "%'");
             rs = ps.executeQuery();
             while (rs.next()) {
-                Buku t = new Buku();
+                ModelBuku t = new ModelBuku();
                 t.setIsbn(rs.getString(1));
                 t.setJudul(rs.getString(2));
                 t.setKategori(rs.getString(3));
