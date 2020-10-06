@@ -22,11 +22,12 @@ public class Koneksi {
                 connection = dataSource.getConnection();
             } catch (SQLException ex) {
                 Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("koneksi gagal");
             }
         }
         return connection;
     }
     public static void main(String[] args) {
-        System.out.println(connection);
+
     }
 }
