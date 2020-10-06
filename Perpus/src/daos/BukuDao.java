@@ -102,17 +102,16 @@ public class BukuDao {
         return false;
     }
     
-    public String perbarui(String isbn, String judul, String kategori, String nama_pengarang, String nama_penerbit, 
-            String tahun_terbit,String sinopsis) {
-        String hasil = "Tidak Berhasil diperbarui";
-        String sql = "UPDATE tb_buku SET isbn='" + isbn + "',judul='" + judul + "',kategori='" + kategori + "'"
-                + ",nama_pengarang = '" + nama_pengarang + "',nama_penerbit = '" + nama_penerbit + 
-                "',tahun_terbit = '" + tahun_terbit + "', sinopsis = '"+ sinopsis+"' WHERE isbn = '" + isbn + "'";
+    public boolean perbarui(Buku en) {
+        boolean hasil = false;
+        String sql = "UPDATE tb_buku SET isbn='" + en.getIsbn() + "',judul='" + en.getJudul() + "',kategori='" + en.getKategori() + "'"
+                + ",nama_pengarang = '" + en.getNamaPengarang() + "',nama_penerbit = '" + en.getNamaPenerbit() + 
+                "',tahun_terbit = '" + en.getTahunTerbit() + "', sinopsis = '"+ en.getSinopsis()+"' WHERE isbn = '" + en.getIsbn() + "'";
         Statement st;
         try {
             st = conn.createStatement();
             if (st.executeUpdate(sql) > 0) {
-                hasil = "Berhasil diupdate";
+                hasil = true;
             }
         } catch (Exception e) {
         }

@@ -21,11 +21,6 @@ public class PegawaiView extends javax.swing.JFrame {
         setNetralCondition();
         this.setTitle("Menu Daftar Buku");
     }
-
-    Connection conn;
-    Buku en = new Buku();
-    Koneksi kon = new Koneksi();
-    BukuDao dao = new BukuDao(kon.getConnection());
     
     BukuController bc = new BukuController();
     DetailController dc = new DetailController();
@@ -408,9 +403,11 @@ public class PegawaiView extends javax.swing.JFrame {
             return;
         }    
         clear();
+        isbn.setEditable(true);
     }//GEN-LAST:event_hpstmblActionPerformed
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
+        isbn.setEditable(false);
         indeks = Table1.getSelectedRow();
         Buku dataBuku = list.get(indeks);
         
@@ -429,8 +426,7 @@ public class PegawaiView extends javax.swing.JFrame {
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
         //String katakunci = combobox.getSelectedItem().toString();
         List<Buku> list = new ArrayList();
-        BukuDao buku=new BukuDao(conn);
-        list = dao.cariBuku(caribuku.getText().toString());
+        list = bc.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][6];
         int i = 0;
         for (Buku li : list) {
@@ -447,20 +443,23 @@ public class PegawaiView extends javax.swing.JFrame {
     }//GEN-LAST:event_caribukuKeyPressed
 
     private void brutmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brutmblActionPerformed
-        String isbnt=isbn.getText().toString();
-        String judult=judul.getText().toString();
-        String kategorit=kategori.getText().toString();
-        String npet=pengarang.getText().toString();
-        String npt=penerbit.getText().toString();
-        String tht=tahun.getText().toString();
-        String sinop = textSinopsis.getText().toString();
+//        String isbnt=isbn.getText().toString();
+//        String judult=judul.getText().toString();
+//        String kategorit=kategori.getText().toString();
+//        String npet=pengarang.getText().toString();
+//        String npt=penerbit.getText().toString();
+//        String tht=tahun.getText().toString();
+//        String sinop = textSinopsis.getText().toString();
         
-        String update=dao.perbarui(isbnt, judult, kategorit, npet, npt, tht, sinop);
+        String update=bc.updateBuku(isbn.getText().toString(), judul.getText().toString(), kategori.getText().toString(), pengarang.getText().toString(), penerbit.getText().toString(), tahun.getText().toString(), textSinopsis.getText().toString());
         refresh();
+        clear();
         setNetralCondition();
+        isbn.setEditable(true);
     }//GEN-LAST:event_brutmblActionPerformed
 
     private void brshtmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brshtmblActionPerformed
+        isbn.setEditable(true);
         clear();
         setNetralCondition();
     }//GEN-LAST:event_brshtmblActionPerformed
