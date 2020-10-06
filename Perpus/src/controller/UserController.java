@@ -23,4 +23,20 @@ public class UserController {
             return "Fail";
         }
     }
+    
+    public List<User> letUserLogin(){
+        List<User> usr = new ArrayList();
+        Koneksi daftarAkun = new Koneksi();
+        Connection conn = daftarAkun.getConnection();
+        UserDao userDao = new UserDao(conn);
+        usr = userDao.getUser();
+        if(usr != null) {
+            System.out.println("Success");
+            return usr;
+        } else {
+            System.out.println("Fail");
+            return null;
+        }
+        
+    }
 }

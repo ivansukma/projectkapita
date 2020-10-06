@@ -1,5 +1,6 @@
 package views;
 
+import controller.BukuController;
 import controller.DetailController;
 import daos.BukuDao;
 import daos.DetailDao;
@@ -41,7 +42,8 @@ public class PengunjungView extends javax.swing.JFrame {
     Koneksi kon = new Koneksi();
     
     BukuDao dao = new BukuDao(kon.getConnection());
-    //fix bawah ini
+    
+    BukuController bc = new BukuController();
     DetailController dc = new DetailController();
     
     

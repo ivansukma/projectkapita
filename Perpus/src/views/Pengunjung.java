@@ -1,5 +1,6 @@
 package views;
 
+import controller.UserController;
 import daos.UserDao;
 import models.User;
 import tools.Koneksi;
@@ -13,10 +14,8 @@ public class Pengunjung extends javax.swing.JFrame {
     }
     
     public String idUser;
-    
-    User en = new User();
-    Koneksi kon = new Koneksi();
-    UserDao dao = new UserDao(kon.getConnection());
+
+    UserController uc = new UserController();
     List<User> list = new ArrayList();
 
     @SuppressWarnings("unchecked")
@@ -131,7 +130,7 @@ public class Pengunjung extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inActionPerformed
-        list = dao.getUser();
+        list = uc.letUserLogin();
         String[][] data = new String[list.size()][2];
         int i = 0;
         for (User li : list) {

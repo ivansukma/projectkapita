@@ -1,8 +1,6 @@
 package views;
 
-import daos.BukuDao;
-import daos.PegawaiDao;
-import tools.Koneksi;
+import controller.PegawaiController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,9 +10,7 @@ public class Pegawai extends javax.swing.JFrame {
         initComponents();
     }
     
-    models.Pegawai model = new models.Pegawai();
-    Koneksi kon = new Koneksi();
-    PegawaiDao dao = new PegawaiDao(kon.getConnection());
+    PegawaiController pg = new PegawaiController();
     List<models.Pegawai> list = new ArrayList();
     
     @SuppressWarnings("unchecked")
@@ -104,7 +100,7 @@ public class Pegawai extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inActionPerformed
-        list = dao.getPegawai();
+        list = pg.loginPegawai();
         String[][] data = new String[list.size()][2];
         int i = 0;
         for (models.Pegawai li : list) {

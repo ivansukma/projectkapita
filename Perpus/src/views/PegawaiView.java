@@ -39,7 +39,7 @@ public class PegawaiView extends javax.swing.JFrame {
     boolean isShow = false;
    
     public void refresh() {
-        list = dao.getAll();
+        list = bc.getBuku();
         String[][] data = new String[list.size()][7];
         int i = 0;
         for (Buku li : list) {
@@ -104,6 +104,16 @@ public class PegawaiView extends javax.swing.JFrame {
         brutmbl.setEnabled(true);
         hpstmbl.setEnabled(true);
         msktmbl.setEnabled(false);
+    }
+    
+    public void clear() {
+        isbn.setText("");
+        judul.setText("");
+        kategori.setText("");
+        pengarang.setText("");
+        penerbit.setText("");
+        tahun.setText("");
+        textSinopsis.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -380,13 +390,6 @@ public class PegawaiView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void msktmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msktmblActionPerformed
-        en.setIsbn(isbn.getText().toString());
-        en.setJudul(judul.getText().toString());
-        en.setKategori(kategori.getText().toString());
-        en.setNamaPengarang(pengarang.getText().toString());
-        en.setNamaPenerbit(penerbit.getText().toString());
-        en.setTahunTerbit(tahun.getText().toString());
-        en.setSinopsis(textSinopsis.getText().toString());
         
         String input = bc.inputDataBuku(isbn.getText(), judul.getText(), kategori.getText(), penerbit.getText(), 
                 pengarang.getText(), textSinopsis.getText(), tahun.getText());
@@ -398,12 +401,13 @@ public class PegawaiView extends javax.swing.JFrame {
         int konfirm = JOptionPane.showConfirmDialog(null, "Yakin Hapus?", 
                 "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (konfirm == JOptionPane.YES_OPTION) {
-            String hapus = dao.hapus(isbn.getText().toString());
+            String hapus = bc.hapusBuku(isbn.getText().toString());
             refresh();
             setNetralCondition();
         }else{
             return;
         }    
+        clear();
     }//GEN-LAST:event_hpstmblActionPerformed
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
@@ -457,13 +461,7 @@ public class PegawaiView extends javax.swing.JFrame {
     }//GEN-LAST:event_brutmblActionPerformed
 
     private void brshtmblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brshtmblActionPerformed
-        isbn.setText("");
-        judul.setText("");
-        kategori.setText("");
-        pengarang.setText("");
-        penerbit.setText("");
-        tahun.setText("");
-        textSinopsis.setText("");
+        clear();
         setNetralCondition();
     }//GEN-LAST:event_brshtmblActionPerformed
 

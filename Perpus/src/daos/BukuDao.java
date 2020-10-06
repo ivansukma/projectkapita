@@ -88,18 +88,18 @@ public class BukuDao {
         return get;
     }
     
-    public String hapus(String isbn) {
-        String hasil = "Tidak Berhasil dihapus";
+    public boolean hapus(String isbn) {
+        boolean hasil = false;
         String query = "DELETE FROM tb_buku WHERE isbn='" + isbn + "'";
         Statement st;
         try {
             st = conn.createStatement();
             if (st.executeUpdate(query) > 0) {
-                hasil = "Berhasil dihapus";
+                hasil = true;
             }
         } catch (Exception e) {
         }
-        return hasil;
+        return false;
     }
     
     public String perbarui(String isbn, String judul, String kategori, String nama_pengarang, String nama_penerbit, 

@@ -27,4 +27,30 @@ public class BukuController {
             return "Fail";
         }
     }
+    
+    public String hapusBuku(String isbn) {
+        Koneksi inputBuku = new Koneksi();
+        Connection conn = inputBuku.getConnection();
+        BukuDao bukuDao = new BukuDao(conn);
+        if (bukuDao.hapus(isbn)) {
+            return "Success";
+        } else {
+            return "Fail";
+        }
+    }
+    
+    public List<Buku> getBuku() {
+        List<Buku> lb = new ArrayList();
+        Koneksi inputBuku = new Koneksi();
+        Connection conn = inputBuku.getConnection();
+        BukuDao bukuDao = new BukuDao(conn);
+        lb = bukuDao.getAll();
+        if (lb != null) {
+            System.out.println("Success");
+            return lb;
+        } else {
+            System.out.println("Fail");
+            return null;
+        }
+    }
 }
