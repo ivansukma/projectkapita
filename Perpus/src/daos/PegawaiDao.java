@@ -1,6 +1,6 @@
-package controllers;
+package daos;
 
-import models.ModelPegawai;
+import models.Pegawai;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PegawaiController {
+public class PegawaiDao {
     Connection conn;
-    public PegawaiController(Connection con) {
+    public PegawaiDao(Connection con) {
         this.conn = con;
     }
     
-    public List<ModelPegawai> getPegawai() {
-        List<ModelPegawai> get = new ArrayList();
+    public List<Pegawai> getPegawai() {
+        List<Pegawai> get = new ArrayList();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
             preparedStatement = conn.prepareCall("SELECT * FROM tb_pegawai");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ModelPegawai entity = new ModelPegawai();
+                Pegawai entity = new Pegawai();
                 entity.setPegawai(resultSet.getString(1));
                 entity.setPas(resultSet.getString(2));
                 get.add(entity);

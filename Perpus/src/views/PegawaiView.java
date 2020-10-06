@@ -1,9 +1,10 @@
 package views;
 
-import controllers.BukuController;
-import controllers.DetailController;
-import models.ModelBuku;
-import models.ModelDetail;
+import controller.DetailController;
+import daos.BukuDao;
+import daos.DetailDao;
+import models.Buku;
+import models.Detail;
 import tools.Koneksi;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -21,13 +22,15 @@ public class PegawaiView extends javax.swing.JFrame {
     }
 
     Connection conn;
-    ModelBuku en = new ModelBuku();
+    Buku en = new Buku();
     Koneksi kon = new Koneksi();
-    BukuController dao = new BukuController(kon.getConnection());
-    DetailController daoDet = new DetailController(kon.getConnection());
-    List<ModelBuku> list = new ArrayList();
-    List<ModelBuku> listt = new ArrayList();
-    List<ModelDetail> listDet = new ArrayList();
+    BukuDao dao = new BukuDao(kon.getConnection());
+    
+    DetailController dc = new DetailController();
+    
+    List<Buku> list = new ArrayList();
+    List<Buku> listt = new ArrayList();
+    List<Detail> listDet = new ArrayList();
     int total;
     int indeks;
     int countDetail;
@@ -37,7 +40,7 @@ public class PegawaiView extends javax.swing.JFrame {
         list = dao.getAll();
         String[][] data = new String[list.size()][7];
         int i = 0;
-        for (ModelBuku li : list) {
+        for (Buku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -52,10 +55,10 @@ public class PegawaiView extends javax.swing.JFrame {
     }
     
     public void getAllDetail() {
-        listDet = daoDet.getAllDetail();
+        listDet = dc.getDetail();
         String[][] data = new String[listDet.size()][4];
         int i = 0;
-        for (ModelDetail md : listDet) {
+        for (Detail md : listDet) {
             data[i][0] = md.getId();
             data[i][1] = md.getJudul();
             data[i][2] = md.getNamaUser();
@@ -71,13 +74,12 @@ public class PegawaiView extends javax.swing.JFrame {
     }
     
     public void getDetailBuku() {
-        List<ModelDetail> dataDet = new ArrayList();
-        DetailController detail = new DetailController(conn);
-        dataDet = daoDet.lihatRecord(judul.getText().toString());
+        List<Detail> dataDet = new ArrayList();
+        dataDet = dc.cariDetail(judul.getText().toString());
         
         String[][] data = new String[list.size()][4];
         int i = 0;
-        for(ModelDetail dd : dataDet) {
+        for(Detail dd : dataDet) {
             data[i][0] = dd.getId();
             data[i][1] = dd.getJudul();
             data[i][2] = dd.getNamaUser();
@@ -402,7 +404,7 @@ public class PegawaiView extends javax.swing.JFrame {
 
     private void Table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Table1MouseClicked
         indeks = Table1.getSelectedRow();
-        ModelBuku dataBuku = list.get(indeks);
+        Buku dataBuku = list.get(indeks);
         
         isbn.setText(dataBuku.getIsbn());
         judul.setText(dataBuku.getJudul());
@@ -418,12 +420,12 @@ public class PegawaiView extends javax.swing.JFrame {
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
         //String katakunci = combobox.getSelectedItem().toString();
-        List<ModelBuku> list = new ArrayList();
-        BukuController buku=new BukuController(conn);
+        List<Buku> list = new ArrayList();
+        BukuDao buku=new BukuDao(conn);
         list = dao.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][6];
         int i = 0;
-        for (ModelBuku li : list) {
+        for (Buku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();

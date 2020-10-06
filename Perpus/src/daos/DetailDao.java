@@ -1,4 +1,4 @@
-package controllers;
+package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import models.ModelDetail;
+import models.Detail;
 
-public class DetailController {
+public class DetailDao {
     private Connection conn;
     
-    public DetailController(Connection con) {
+    public DetailDao(Connection con) {
         this.conn = con;
     }
     
-    public boolean inputuser(ModelDetail entity) {
+    public boolean inputDetail(Detail entity) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_detail_userbuku (id, nama_user, judul, tanggal) "
@@ -37,15 +37,15 @@ public class DetailController {
     }
     
     
-    public List<ModelDetail> lihatRecord(String judul) {
-        List<ModelDetail> get = new ArrayList();
+    public List<Detail> lihatDetail(String judul) {
+        List<Detail> get = new ArrayList();
         PreparedStatement ps;
         ResultSet rs;
         try {
             ps = conn.prepareCall("SELECT * FROM tb_detail_userbuku WHERE judul LIKE '%" + judul + "%'");
             rs = ps.executeQuery();
             while (rs.next()) {
-                ModelDetail mdtl = new ModelDetail();
+                Detail mdtl = new Detail();
                 mdtl.setId(rs.getString(1));
                 mdtl.setNamaUser(rs.getString(2));
                 mdtl.setJudul(rs.getString(3));
@@ -57,15 +57,15 @@ public class DetailController {
         return get;
     }
     
-    public List<ModelDetail> getAllDetail() {
-        List<ModelDetail> get = new ArrayList();
+    public List<Detail> getAllDetail() {
+        List<Detail> get = new ArrayList();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
             preparedStatement = conn.prepareCall("SELECT * FROM tb_detail_userbuku");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ModelDetail entity = new ModelDetail();
+                Detail entity = new Detail();
                 entity.setId(resultSet.getString(1));
                 entity.setJudul(resultSet.getString(2));
                 entity.setNamaUser(resultSet.getString(3));

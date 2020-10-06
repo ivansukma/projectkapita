@@ -1,8 +1,8 @@
 package views;
 
-import controllers.UserController;
+import daos.UserDao;
 import javax.swing.JOptionPane;
-import models.ModelUser;
+import models.User;
 import tools.Koneksi;
 
 
@@ -13,9 +13,9 @@ public class DaftarAkun extends javax.swing.JFrame {
         initComponents();
     }
     
-    ModelUser model = new ModelUser();
+    User model = new User();
     Koneksi kon = new Koneksi();
-    UserController dao = new UserController(kon.getConnection());
+    UserDao dao = new UserDao(kon.getConnection());
 
 
     @SuppressWarnings("unchecked")

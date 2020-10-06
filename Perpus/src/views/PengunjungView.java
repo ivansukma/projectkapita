@@ -1,9 +1,10 @@
 package views;
 
-import controllers.BukuController;
-import controllers.DetailController;
-import models.ModelBuku;
-import models.ModelDetail;
+import controller.DetailController;
+import daos.BukuDao;
+import daos.DetailDao;
+import models.Buku;
+import models.Detail;
 import tools.Koneksi;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
@@ -35,16 +36,18 @@ public class PengunjungView extends javax.swing.JFrame {
     }
 
     Connection conn;
-    ModelBuku en = new ModelBuku();
-    ModelDetail md = new ModelDetail();
+    Buku en = new Buku();
+    Detail md = new Detail();
     Koneksi kon = new Koneksi();
     
-    BukuController dao = new BukuController(kon.getConnection());
-    DetailController daoDetail = new DetailController(kon.getConnection());
+    BukuDao dao = new BukuDao(kon.getConnection());
+    //fix bawah ini
+    DetailController dc = new DetailController();
     
-    List<ModelBuku> list = new ArrayList();
-    List<ModelBuku> listt = new ArrayList();
-    List<ModelDetail> listDet = new ArrayList();
+    
+    List<Buku> list = new ArrayList();
+    List<Buku> listt = new ArrayList();
+    List<Detail> listDet = new ArrayList();
     
     int total;
     int indeks;
@@ -55,7 +58,7 @@ public class PengunjungView extends javax.swing.JFrame {
         list = dao.getAll();
         String[][] data = new String[list.size()][7];
         int i = 0;
-        for (ModelBuku li : list) {
+        for (Buku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -70,20 +73,14 @@ public class PengunjungView extends javax.swing.JFrame {
     }
     
     public void getAllDetail() {
-        listDet = daoDetail.getAllDetail();
+        listDet = dc.getDetail();
         String[][] data = new String[listDet.size()][4];
         int i = 0;
-        for (ModelDetail md : listDet) {
+        for (Detail md : listDet) {
             data[i][0] = md.getId();
             data[i][1] = md.getJudul();
             data[i][2] = md.getNamaUser();
             data[i][3] = md.getTgl();
-            
-            System.out.print(data[i][0]);
-            System.out.print(data[i][1]);
-            System.out.print(data[i][2]);
-            System.out.println(data[i][3]);
-            
             i++;
         }
         this.countDetail = i;
@@ -95,13 +92,12 @@ public class PengunjungView extends javax.swing.JFrame {
     }
     
     public void getDetailBuku() {
-        List<ModelDetail> dataDet = new ArrayList();
-        DetailController detail = new DetailController(conn);
-        dataDet = daoDetail.lihatRecord(judul.getText().toString());
+        List<Detail> dataDet = new ArrayList();
+        dataDet = dc.cariDetail(judul.getText().toString());
         
         String[][] data = new String[list.size()][4];
         int i = 0;
-        for(ModelDetail dd : dataDet) {
+        for(Detail dd : dataDet) {
             data[i][0] = dd.getId();
             data[i][1] = dd.getJudul();
             data[i][2] = dd.getNamaUser();
@@ -392,7 +388,7 @@ public class PengunjungView extends javax.swing.JFrame {
        buttonBaca.setEnabled(true);
         
         indeks = Table1.getSelectedRow();
-        ModelBuku dataBuku = list.get(indeks);
+        Buku dataBuku = list.get(indeks);
         
         isbn.setText(dataBuku.getIsbn());
         judul.setText(dataBuku.getJudul());
@@ -407,12 +403,12 @@ public class PengunjungView extends javax.swing.JFrame {
 
     private void caribukuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caribukuKeyPressed
         //String katakunci = combobox.getSelectedItem().toString();
-         List<ModelBuku> list = new ArrayList();
-        BukuController buku=new BukuController(conn);
+         List<Buku> list = new ArrayList();
+        BukuDao buku=new BukuDao(conn);
         list = dao.cariBuku(caribuku.getText().toString());
         String[][] data = new String[list.size()][7];
         int i = 0;
-        for (ModelBuku li : list) {
+        for (Buku li : list) {
             data[i][0] = li.getIsbn();
             data[i][1] = li.getJudul();
             data[i][2] = li.getKategori();
@@ -431,17 +427,11 @@ public class PengunjungView extends javax.swing.JFrame {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date));
-        
         String id = String.valueOf(this.countDetail+1);
-        md.setId(id);
-        md.setJudul(judul.getText().toString());
-        md.setNamaUser(this.nama);
-        md.setTgl(formatter.format(date));
         
-        boolean input = daoDetail.inputuser(md);
+        dc.inputDataDetail(id, judul.getText().toString(), this.nama, formatter.format(date));
         getAllDetail();
         getDetailBuku();
-        
         clearField();
     }//GEN-LAST:event_buttonBacaActionPerformed
 

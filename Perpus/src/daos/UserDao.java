@@ -1,4 +1,4 @@
-package controllers;
+package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,23 +7,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import models.ModelUser;
+import models.User;
 
-public class UserController {
+public class UserDao {
     private Connection conn = null;
-    public UserController(Connection con){
+    public UserDao(Connection con){
         this.conn = con;
     }
     
-    public List<ModelUser> getUser() {
-        List<ModelUser> get = new ArrayList();
+    public List<User> getUser() {
+        List<User> get = new ArrayList();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         try {
             preparedStatement = conn.prepareCall("SELECT * FROM tb_user");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ModelUser entity = new ModelUser();
+                User entity = new User();
                 entity.setUsername(resultSet.getString(1));
                 entity.setPassword(resultSet.getString(2));
                 get.add(entity);
@@ -34,7 +34,7 @@ public class UserController {
         return get;
     }
     
-    public boolean inputuser(ModelUser entity) {
+    public boolean inputuser(User entity) {
         PreparedStatement preparedStatement;
         try {
             preparedStatement = conn.prepareStatement("INSERT INTO tb_user (user, pass, email, no_handphone) "
