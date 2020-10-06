@@ -76,4 +76,18 @@ public class DetailDao {
         }
         return get;
     }
+    
+    public boolean hapusSetDetail(String judul) {
+        boolean hasil = false;
+        String query = "DELETE FROM tb_detail_userbuku WHERE judul='" + judul + "'";
+        Statement st;
+        try {
+            st = conn.createStatement();
+            if (st.executeUpdate(query) > 0) {
+                hasil = true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
 }

@@ -28,7 +28,7 @@ public class BukuController {
         }
     }
     
-    public String updateBuku(String isbn, String judul, String kategori, String NamaPenerbit,String NamaPengarang,String Sinopsis,String TahunTerbit) {
+    public String updateBuku(String isbn, String judul, String kategori, String NamaPenerbit,String NamaPengarang,String TahunTerbit, String Sinopsis) {
         Koneksi inputBuku = new Koneksi();
         Connection conn = inputBuku.getConnection();
         BukuDao bukuDao = new BukuDao(conn);
@@ -38,8 +38,8 @@ public class BukuController {
         buku.setKategori(kategori);
         buku.setNamaPenerbit(NamaPenerbit);
         buku.setNamaPengarang(NamaPengarang);
-        buku.setSinopsis(Sinopsis);
         buku.setTahunTerbit(TahunTerbit);
+        buku.setSinopsis(Sinopsis);
         if(bukuDao.perbarui(buku)) {
             return "Success";
         } else {

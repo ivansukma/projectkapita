@@ -397,6 +397,7 @@ public class PegawaiView extends javax.swing.JFrame {
                 "Konfirmasi", JOptionPane.YES_NO_OPTION);
         if (konfirm == JOptionPane.YES_OPTION) {
             String hapus = bc.hapusBuku(isbn.getText().toString());
+            String recHapus = dc.hapusDetail(judul.getText().toString());
             refresh();
             setNetralCondition();
         }else{
@@ -451,7 +452,7 @@ public class PegawaiView extends javax.swing.JFrame {
 //        String tht=tahun.getText().toString();
 //        String sinop = textSinopsis.getText().toString();
         
-        String update=bc.updateBuku(isbn.getText().toString(), judul.getText().toString(), kategori.getText().toString(), pengarang.getText().toString(), penerbit.getText().toString(), tahun.getText().toString(), textSinopsis.getText().toString());
+        String update=bc.updateBuku(isbn.getText().toString(), judul.getText().toString(), kategori.getText().toString(), penerbit.getText().toString(), pengarang.getText().toString(),tahun.getText().toString(), textSinopsis.getText().toString());
         refresh();
         clear();
         setNetralCondition();

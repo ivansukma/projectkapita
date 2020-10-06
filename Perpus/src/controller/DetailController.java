@@ -25,6 +25,17 @@ public class DetailController {
         }
     }
     
+    public String hapusDetail(String judul) {
+        Koneksi inputBuku = new Koneksi();
+        Connection conn = inputBuku.getConnection();
+        DetailDao bukuDao = new DetailDao(conn);
+        if (bukuDao.hapusSetDetail(judul)) {
+            return "Success";
+        } else {
+            return "Fail";
+        }
+    }
+    
     public List<Detail> cariDetail(String judul) {
         List<Detail> ld = new ArrayList();
         Koneksi cariDetail = new Koneksi();
